@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Add Menu Item</title>
+</head>
+
+<body>
+
+<h1>Add Menu Item</h1>
+
+<h3 th:text="'Restaurant: ' + ${restaurant.name}"></h3>
+
+<form th:action="@{/menu/save}"
+      th:object="${menuItem}"
+      method="post">
+
+    <input type="hidden"
+           th:field="*{restaurant.id}">
+
+    <label>Item Name</label><br>
+    <input type="text"
+           th:field="*{name}"
+           placeholder="Enter item name"
+           required>
+
+    <br><br>
+
+    <label>Description</label><br>
+    <textarea th:field="*{description}"
+              placeholder="Enter item description"
+              required></textarea>
+
+    <br><br>
+
+    <label>Price</label><br>
+    <input type="number"
+           th:field="*{price}"
+           step="0.01"
+           placeholder="Enter price"
+           required>
+
+    <br><br>
+
+    <label>Category</label><br>
+    <input type="text"
+           th:field="*{category}"
+           placeholder="Example: Biryani, Pizza, Drinks"
+           required>
+
+    <br><br>
+
+    <label>Image URL</label><br>
+    <input type="text"
+           th:field="*{imageUrl}"
+           placeholder="Enter image URL">
+
+    <br><br>
+
+    <label>Available</label>
+    <input type="checkbox"
+           th:field="*{available}"
+           checked>
+
+    <br><br>
+
+    <button type="submit">Save Menu Item</button>
+
+</form>
+
+<br>
+
+<a th:href="@{/restaurant/list}">
+    Back to Restaurants
+</a>
+
+</body>
+
+</html>

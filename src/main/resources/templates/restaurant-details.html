@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Restaurant Details</title>
+</head>
+
+<body>
+
+<h1>Restaurant Details</h1>
+
+<div>
+
+    <h2 th:text="${restaurant.name}"></h2>
+
+    <p>
+        <strong>Description:</strong>
+        <span th:text="${restaurant.description}"></span>
+    </p>
+
+    <p>
+        <strong>Cuisine:</strong>
+        <span th:text="${restaurant.cuisine}"></span>
+    </p>
+
+    <p>
+        <strong>Rating:</strong>
+        <span th:text="${restaurant.rating}"></span>
+    </p>
+
+    <p>
+        <strong>Address:</strong>
+        <span th:text="${restaurant.address}"></span>
+    </p>
+
+    <p>
+        <strong>Phone:</strong>
+        <span th:text="${restaurant.phone}"></span>
+    </p>
+
+    <div th:if="${restaurant.image != null and !restaurant.image.isEmpty()}">
+
+        <p>
+            <strong>Restaurant Image:</strong>
+        </p>
+
+        <img th:src="${restaurant.image}"
+             alt="Restaurant Image"
+             width="300">
+
+    </div>
+
+</div>
+
+<br>
+
+<a th:href="@{/menu/list(restaurantId=${restaurant.id})}">
+    View Menu
+</a>
+
+<br><br>
+
+<a th:href="@{/restaurant/list}">
+    Back to Restaurants
+</a>
+
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>My Orders - Food Delivery</title>
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        margin: 0;
+        padding: 30px;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .order-card {
+        background: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 12px;
+        margin-bottom: 15px;
+    }
+
+    .status {
+        color: green;
+        font-weight: bold;
+    }
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+    }
+
+    .total {
+        text-align: right;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 15px;
+        border-top: 1px solid #ddd;
+        padding-top: 12px;
+    }
+
+    .empty {
+        text-align: center;
+        background: white;
+        padding: 40px;
+        border-radius: 10px;
+    }
+
+    .back {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        background: #ff5722;
+        color: white;
+        padding: 10px 18px;
+        border-radius: 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>My Orders</h1>
+
+  <div th:if="${orders == null or #lists.isEmpty(orders)}"
+       class="empty">
+
+    <h2>No orders yet</h2>
+
+    <p>You have not placed any orders.</p>
+
+    <a class="back"
+       th:href="@{/restaurants}">
+      Browse Restaurants
+    </a>
+
+  </div>
+
+
+  <div th:each="order : ${orders}"
+       class="order-card">
+
+    <div class="order-header">
+
+      <div>
+        <strong>Order #</strong>
+        <span th:text="${order.id}"></span>
+      </div>
+
+      <div class="status"
+           th:text="${order.status}">
+      </div>
+
+    </div>
+
+    <p>
+      <strong>Date:</strong>
+      <span th:text="${#temporals.format(order.orderDate, 'dd-MM-yyyy HH:mm')}"></span>
+    </p>
+
+    <p>
+      <strong>Delivery Address:</strong>
+      <span th:text="${order.deliveryAddress}"></span>
+    </p>
+
+
+    <h3>Items</h3>
+
+    <div th:each="item : ${order.orderItems}"
+         class="item">
+
+            <span>
+                <strong th:text="${item.menuItem.name}">
+                </strong>
+
+                ×
+
+                <span th:text="${item.quantity}">
+                </span>
+            </span>
+
+      <span>
+                ₹
+                <span th:text="${item.price * item.quantity}">
+                </span>
+            </span>
+
+    </div>
+
+
+    <div class="total">
+
+      Total: ₹
+      <span th:text="${order.totalAmount}">
+            </span>
+
+    </div>
+
+  </div>
+
+
+  <div style="text-align:center;">
+
+    <a class="back"
+       th:href="@{/restaurants}">
+      ← Browse Restaurants
+    </a>
+
+  </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>My Cart</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #e65100;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background-color: #e65100;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .remove-btn {
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .remove-btn:hover {
+            text-decoration: underline;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+            margin-top: 15px;
+        }
+
+        .clear-btn {
+            background-color: #d32f2f;
+        }
+
+        .restaurant-btn {
+            background-color: #555;
+        }
+
+        .checkout-btn {
+            background-color: #2e7d32;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .checkout-section {
+            text-align: right;
+            margin-top: 25px;
+        }
+
+        .empty {
+            padding: 30px;
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🛒 My Food Cart</h1>
+
+    <p>
+        User:
+        <strong th:text="${user.fullName}"></strong>
+    </p>
+
+    <hr>
+
+    <!-- EMPTY CART -->
+
+    <div class="empty"
+         th:if="${#lists.isEmpty(cartItems)}">
+
+        <h3>Your cart is empty.</h3>
+
+        <a class="button restaurant-btn"
+           th:href="@{/restaurant/list}">
+            Browse Restaurants
+        </a>
+
+    </div>
+
+
+    <!-- CART ITEMS -->
+
+    <div th:if="${!#lists.isEmpty(cartItems)}">
+
+        <table>
+
+            <thead>
+
+            <tr>
+                <th>Food Item</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each="item : ${cartItems}">
+
+                <td th:text="${item.menuItem.name}">
+                    Food
+                </td>
+
+                <td th:text="${item.menuItem.category}">
+                    Category
+                </td>
+
+                <td>
+                    ₹<span th:text="${item.menuItem.price}">
+                        0
+                    </span>
+                </td>
+
+                <td th:text="${item.quantity}">
+                    1
+                </td>
+
+                <td>
+
+                    <a class="remove-btn"
+                       th:href="@{/cart/remove/{id}(id=${item.id}, userId=${user.id})}">
+                        Remove
+                    </a>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <!-- CART ACTIONS -->
+
+        <br>
+
+        <a class="button clear-btn"
+           th:href="@{/cart/clear(userId=${user.id})}">
+            Clear Cart
+        </a>
+
+
+        <!-- CHECKOUT -->
+
+        <div class="checkout-section">
+
+            <a class="button checkout-btn"
+               th:href="@{/checkout(userId=${user.id})}">
+                Proceed to Checkout →
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+    <a class="button restaurant-btn"
+       th:href="@{/restaurant/list}">
+        ← Back to Restaurants
+    </a>
+
+</div>
+
+</body>
+
+</html>

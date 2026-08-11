@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Order Placed</title>
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 500px;
+        margin: 80px auto;
+        background: white;
+        padding: 40px;
+        text-align: center;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .success {
+        font-size: 60px;
+    }
+
+    h1 {
+        color: #28a745;
+    }
+
+    .order-id {
+        font-size: 18px;
+        margin: 20px 0;
+    }
+
+    .button {
+        display: inline-block;
+        margin: 10px;
+        padding: 12px 20px;
+        background: #ff5722;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+    }
+
+    .button:hover {
+        background: #e64a19;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="success">✓</div>
+
+  <h1>Order Placed Successfully!</h1>
+
+  <p>Thank you for ordering with us.</p>
+
+  <div class="order-id">
+
+    <strong>Order ID:</strong>
+
+    <span th:text="${order.id}">
+        </span>
+
+  </div>
+
+  <p>
+    <strong>Status:</strong>
+
+    <span th:text="${order.status}">
+        </span>
+  </p>
+
+  <p>
+    Your food will be prepared and delivered to:
+  </p>
+
+  <p>
+    <strong th:text="${order.deliveryAddress}">
+    </strong>
+  </p>
+
+  <br>
+
+  <a class="button"
+     th:href="@{/orders(userId=${userId})}">
+    View My Orders
+  </a>
+
+  <a class="button"
+     th:href="@{/restaurants}">
+    Order More Food
+  </a>
+
+</div>
+
+</body>
+
+</html>

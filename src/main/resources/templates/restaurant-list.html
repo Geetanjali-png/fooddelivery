@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Restaurants</title>
+</head>
+
+<body>
+
+<h1>Food Delivery - Restaurants</h1>
+
+<!-- Search -->
+<form th:action="@{/restaurant/list}" method="get">
+
+  <input type="text"
+         name="search"
+         placeholder="Search restaurant"
+         th:value="${search}">
+
+  <button type="submit">Search</button>
+
+</form>
+
+<br>
+
+<!-- Cuisine Filter -->
+<form th:action="@{/restaurant/list}" method="get">
+
+  <select name="cuisine">
+
+    <option value="">All Cuisines</option>
+
+    <option value="Indian">Indian</option>
+
+    <option value="Chinese">Chinese</option>
+
+    <option value="Italian">Italian</option>
+
+    <option value="South Indian">South Indian</option>
+
+    <option value="North Indian">North Indian</option>
+
+  </select>
+
+  <button type="submit">Filter</button>
+
+</form>
+
+<br>
+
+<a th:href="@{/restaurant/list}">
+  Show All Restaurants
+</a>
+
+<br><br>
+
+<a th:href="@{/restaurant/add}">
+  Add Restaurant
+</a>
+
+<br><br>
+
+<table border="1">
+
+  <thead>
+
+  <tr>
+
+    <th>ID</th>
+
+    <th>Name</th>
+
+    <th>Description</th>
+
+    <th>Cuisine</th>
+
+    <th>Rating</th>
+
+    <th>Address</th>
+
+    <th>Phone</th>
+
+    <th>Actions</th>
+
+  </tr>
+
+  </thead>
+
+  <tbody>
+
+  <tr th:each="restaurant : ${restaurants}">
+
+    <td th:text="${restaurant.id}"></td>
+
+    <td th:text="${restaurant.name}"></td>
+
+    <td th:text="${restaurant.description}"></td>
+
+    <td th:text="${restaurant.cuisine}"></td>
+
+    <td th:text="${restaurant.rating}"></td>
+
+    <td th:text="${restaurant.address}"></td>
+
+    <td th:text="${restaurant.phone}"></td>
+
+    <td>
+
+      <a th:href="@{/restaurant/{id}(id=${restaurant.id})}">
+        View Details
+      </a>
+
+      |
+
+      <a th:href="@{/restaurant/delete/{id}(id=${restaurant.id})}">
+        Delete
+      </a>
+
+    </td>
+
+  </tr>
+
+  </tbody>
+
+</table>
+
+</body>
+
+</html>

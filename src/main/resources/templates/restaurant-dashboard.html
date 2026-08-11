@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Restaurant Dashboard</title>
+</head>
+<body>
+
+<h1>Welcome to Restaurant Dashboard</h1>
+
+<p>You are successfully logged in as a RESTAURANT.</p>
+
+<a th:href="@{/}">Home</a>
+
+<br><br>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+
+</body>
+</html>
